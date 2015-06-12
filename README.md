@@ -20,10 +20,10 @@ If you close the session, the docker container is removed.
 
 If you want to reuse the container you should start it with:
 ```
-docker run --name=dockerDev -i -t -v ~/pebble-dev/:/pebble/ bboehmke/pebble
+docker run --name=pebbleDev -i -t -v ~/pebble-dev/:/pebble/ bboehmke/pebble
 ```
 After you close the shell and the container exit, you can use the restart the 
 container with:
 ```
-docker start -i -a dockerDev
+docker start -i -a pebbleDev
 ```
