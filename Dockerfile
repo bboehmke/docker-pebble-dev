@@ -1,4 +1,5 @@
 FROM ubuntu:14.04
+MAINTAINER Benjamin Böhmke
 
 # set the version of the pebble sdk
 ENV PEBBLE_VERSION PebbleSDK-3.0
