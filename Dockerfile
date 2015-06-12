@@ -6,7 +6,7 @@ ENV PEBBLE_VERSION PebbleSDK-3.0
 
 # update system and get base packages
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y curl python2.7-dev python-pip && \
+    apt-get install -y curl python2.7-dev python-pip libfreetype6-dev bash-completion && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
