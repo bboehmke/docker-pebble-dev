@@ -11,7 +11,7 @@ to use the Pebble SDK.
 For example if you created a directory ```pebble-dev``` in your home directory 
 you start the container with:
 ```
-docker run --rm -i -t -v ~/pebble-dev/:/pebble/ bboehmke/pebble
+docker run --rm -i -t -v ~/pebble-dev/:/pebble/ bboehmke/pebble-dev
 ```
 This opens a shell where you can use the ```pebble``` command.
 The actual directory is already ```/pebble/``` (or the host dir ```~/pebble-dev/```).
@@ -20,7 +20,7 @@ If you close the session, the docker container is removed.
 
 If you want to reuse the container you should start it with:
 ```
-docker run --name=pebbleDev -i -t -v ~/pebble-dev/:/pebble/ bboehmke/pebble
+docker run --name=pebbleDev -i -t -v ~/pebble-dev/:/pebble/ bboehmke/pebble-dev
 ```
 After you close the shell and the container exit, you can use the restart the 
 container with:
