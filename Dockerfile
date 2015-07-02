@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Benjamin Böhmke
 
 # set the version of the pebble sdk
-ENV PEBBLE_VERSION PebbleSDK-3.0
+ENV PEBBLE_VERSION PebbleSDK-3.1
 
 # update system and get base packages
 RUN apt-get update && apt-get upgrade -y && \
