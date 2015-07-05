@@ -27,3 +27,8 @@ container with:
 ```
 docker start -i -a pebbleDev
 ```
+
+To use the emulator, you have to add ```-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix```. Start the container with:
+```
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/pebble-dev/:/pebble/ bboehmke/pebble-dev
+```
