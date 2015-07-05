@@ -28,7 +28,14 @@ container with:
 docker start -i -a pebbleDev
 ```
 
+## Emulator
+
 To use the emulator, you have to add ```-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix```. Start the container with:
 ```
 docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/pebble-dev/:/pebble/ bboehmke/pebble-dev
+```
+
+If the XServer on the host system only allow valid user (e.g. Arch Linux), you have to add ```-v ~/.Xauthority:/home/pebble/.Xauthority --net=host```:
+```
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/pebble-dev/:/pebble/ -v ~/.Xauthority:/home/pebble/.Xauthority --net=host bboehmke/pebble-dev
 ```
