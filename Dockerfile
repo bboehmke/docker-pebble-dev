@@ -5,7 +5,7 @@ MAINTAINER Benjamin Böhmke
 ENV PEBBLE_VERSION PebbleSDK-3.2
 
 # update system and get base packages
-RUN apt-get update && apt-get upgrade -y && \
+RUN apt-get update && \
     apt-get install -y curl python2.7-dev python-pip libfreetype6-dev bash-completion libsdl1.2debian libfdt1 libpixman-1-0 libglib2.0-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -28,11 +28,12 @@ RUN /bin/bash -c " \
     && deactivate \
     "
 
-# prepare pebble user for build environment
+# prepare pebble user for build environment + enable analytics
 RUN adduser --disabled-password --gecos "" --ingroup users pebble && \
     echo "pebble ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     echo "export PATH=/opt/$PEBBLE_VERSION/bin:$PATH" >> /home/pebble/.bashrc && \
-    chmod -R 777 /opt/
+    chmod -R 777 /opt/ && \
+    touch /opt/ENABLE_ANALYTICS
 
 # change to pebble user
 USER pebble
