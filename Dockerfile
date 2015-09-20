@@ -31,12 +31,14 @@ RUN /bin/bash -c " \
 # prepare pebble user for build environment + enable analytics
 RUN adduser --disabled-password --gecos "" --ingroup users pebble && \
     echo "pebble ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    echo "export PATH=/opt/$PEBBLE_VERSION/bin:$PATH" >> /home/pebble/.bashrc && \
     chmod -R 777 /opt/ && \
     touch /opt/ENABLE_ANALYTICS
 
 # change to pebble user
 USER pebble
+
+# set PATH
+ENV PATH /opt/$PEBBLE_VERSION/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # prepare project mount path
 VOLUME /pebble/

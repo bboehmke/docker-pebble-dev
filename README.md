@@ -6,7 +6,7 @@ and the [SDK License Agreement](https://developer.getpebble.com/legal/sdk-licens
 to use the Pebble SDK.
 
 
-## Usage
+## Usage as terminal
 
 For example if you created a directory ```pebble-dev``` in your home directory 
 you start the container with:
@@ -27,6 +27,24 @@ container with:
 ```
 docker start -it -a pebbleDev
 ```
+
+## Direct usage
+
+If you have created a project in ```~/pebble-dev/project``` you can build the 
+app with:
+```
+docker run --rm -it -v ~/pebble-dev/project/:/pebble/ bboehmke/pebble-dev pebble build
+```
+
+If the app should be installed after build you can achieve this with:
+```
+docker run --rm -it \
+    -v ~/pebble-dev/project/:/pebble/ \
+    bboehmke/pebble-dev \
+    sh -c 'pebble build && pebble install --phone=192.168.2.124'
+```
+This works if the phone has the IP address '192.168.2.124'.
+
 
 ## Emulator
 
