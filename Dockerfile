@@ -1,44 +1,45 @@
 FROM ubuntu:14.04
 MAINTAINER Benjamin Böhmke
 
-# set the version of the pebble sdk
-ENV PEBBLE_VERSION PebbleSDK-3.6.2
-
 # update system and get base packages
 RUN apt-get update && \
     apt-get install -y curl python2.7-dev python-pip libfreetype6-dev bash-completion libsdl1.2debian libfdt1 libpixman-1-0 libglib2.0-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# get pebble SDK
-RUN curl -sSL http://assets.getpebble.com.s3-website-us-east-1.amazonaws.com/sdk2/$PEBBLE_VERSION.tar.gz \
-        | tar -v -C /opt -xz
+# set the version of the pebble tool
+ENV PEBBLE_TOOL_VERSION pebble-sdk-4.0-linux64
 
-# get arm tools
-RUN curl -sSL http://assets.getpebble.com.s3-website-us-east-1.amazonaws.com/sdk/arm-cs-tools-ubuntu-universal.tar.gz \
-        | tar -v -C /opt/$PEBBLE_VERSION -xz
+# get pebble tool
+RUN curl -sSL https://s3.amazonaws.com/assets.getpebble.com/pebble-tool/${PEBBLE_TOOL_VERSION}.tar.bz2 \
+        | tar -v -C /opt/ -xj
+
+# patch licence accepting
+COPY accept_license_by_file.patch /opt/
+RUN patch -d /opt/${PEBBLE_TOOL_VERSION}/pebble-tool/ -p1 < /opt/accept_license_by_file.patch
 
 # prepare python environment 
-WORKDIR /opt/$PEBBLE_VERSION
+WORKDIR /opt/${PEBBLE_TOOL_VERSION}
 RUN /bin/bash -c " \
-    pip install virtualenv \
-    && virtualenv --no-site-packages .env \
-    && source .env/bin/activate \
-    && pip install -r requirements.txt \
-    && deactivate \
-    "
+        pip install virtualenv && \
+        virtualenv --no-site-packages .env && \
+        source .env/bin/activate && \
+        pip install -r requirements.txt && \
+        deactivate " && \
+    rm -r /root/.cache/
 
 # prepare pebble user for build environment + enable analytics
 RUN adduser --disabled-password --gecos "" --ingroup users pebble && \
-    echo "pebble ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    chmod -R 777 /opt/ && \
-    touch /opt/ENABLE_ANALYTICS
+    chmod -R 777 /opt/${PEBBLE_TOOL_VERSION} && \
+    mkdir -p /home/pebble/.pebble-sdk/ && \
+    chown -R pebble:users /home/pebble/.pebble-sdk && \
+    touch /home/pebble/.pebble-sdk/ENABLE_ANALYTICS
 
 # change to pebble user
 USER pebble
 
 # set PATH
-ENV PATH /opt/$PEBBLE_VERSION/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # prepare project mount path
 VOLUME /pebble/
