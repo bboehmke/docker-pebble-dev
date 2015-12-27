@@ -30,6 +30,7 @@ RUN /bin/bash -c " \
 
 # prepare pebble user for build environment + enable analytics
 RUN adduser --disabled-password --gecos "" --ingroup users pebble && \
+    echo "pebble ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     chmod -R 777 /opt/${PEBBLE_TOOL_VERSION} && \
     mkdir -p /home/pebble/.pebble-sdk/ && \
     chown -R pebble:users /home/pebble/.pebble-sdk && \
