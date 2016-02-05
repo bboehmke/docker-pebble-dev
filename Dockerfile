@@ -8,15 +8,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # set the version of the pebble tool
-ENV PEBBLE_TOOL_VERSION pebble-sdk-4.0-linux64
+ENV PEBBLE_TOOL_VERSION pebble-sdk-4.1-linux64
 
 # get pebble tool
 RUN curl -sSL https://s3.amazonaws.com/assets.getpebble.com/pebble-tool/${PEBBLE_TOOL_VERSION}.tar.bz2 \
         | tar -v -C /opt/ -xj
-
-# patch licence accepting
-COPY accept_license_by_file.patch /opt/
-RUN patch -d /opt/${PEBBLE_TOOL_VERSION}/pebble-tool/ -p1 < /opt/accept_license_by_file.patch
 
 # prepare python environment 
 WORKDIR /opt/${PEBBLE_TOOL_VERSION}

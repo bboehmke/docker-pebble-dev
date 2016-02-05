@@ -5,9 +5,6 @@ You must accept the [Pebble Terms of Use](https://developer.getpebble.com/legal/
 and the [SDK License Agreement](https://developer.getpebble.com/legal/sdk-license/) 
 to use the Pebble SDK.
 
-To accept the license automatically create a file `ACCEPT_LICENSE` in 
-`/home/pebble/.pebble-sdk/`.
-
 
 ## Note
 With the Pebble Tool 4.0 and above it is possible to switch the SDK version on 
@@ -22,12 +19,12 @@ If you want to use the image as terminal simply run
 `pebble sdk install <SDK_VERSION>` before the first build.
 
 If you want to build direct the build command must be extended like:
-app with:
+app with (`yes` will automatically accept the license:
 ```sh
 docker run --rm -it \
     -v ~/pebble-dev/project/:/pebble/ \
     bboehmke/pebble-dev \
-    /bin/sh -c 'pebble sdk install <SDK_VERSION> && pebble build'
+    /bin/sh -c 'yes | pebble sdk install <SDK_VERSION> && pebble build'
 ```
 
 If you want to keep the SDK mount a volume for `/home/pebble/.pebble-sdk/SDKs`.
