@@ -19,7 +19,7 @@ If you want to use the image as terminal simply run
 `pebble sdk install <SDK_VERSION>` before the first build.
 
 If you want to build direct the build command must be extended like:
-app with (`yes` will automatically accept the license:
+app with (`yes` will automatically accept the license):
 ```sh
 docker run --rm -it \
     -v ~/pebble-dev/project/:/pebble/ \
