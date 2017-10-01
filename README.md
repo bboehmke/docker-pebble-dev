@@ -8,11 +8,12 @@ to use the Pebble SDK.
 
 ## Note
 With the Pebble Tool 4.0 and above it is possible to switch the SDK version on 
-the fly. Based on this change this image will not download an SDK in the build 
-process.
+the fly. ~~Based on this change this image will not download an SDK in the build 
+process.~~
+The latest SDK will be preinstalled in the image.
 
 
-## Before you start
+## Before you start (Optional)
 To build a pebble APP you must first download a SDK. 
 
 If you want to use the image as terminal simply run 
