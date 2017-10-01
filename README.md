@@ -6,55 +6,6 @@ and the [SDK License Agreement](https://developer.getpebble.com/legal/sdk-licens
 to use the Pebble SDK.
 
 
-## Note
-With the Pebble Tool 4.0 and above it is possible to switch the SDK version on 
-the fly. ~~Based on this change this image will not download an SDK in the build 
-process.~~
-The latest SDK will be preinstalled in the image.
-
-
-## Before you start (Optional)
-To build a pebble APP you must first download a SDK. 
-
-If you want to use the image as terminal simply run 
-`pebble sdk install <SDK_VERSION>` before the first build.
-
-If you want to build direct the build command must be extended like:
-app with (`yes` will automatically accept the license):
-```sh
-docker run --rm -it \
-    -v ~/pebble-dev/project/:/pebble/ \
-    bboehmke/pebble-dev \
-    /bin/sh -c 'yes | pebble sdk install <SDK_VERSION> && pebble build'
-```
-
-If you want to keep the SDK mount a volume for `/home/pebble/.pebble-sdk/SDKs`.
-Than you load the SDK once and reuse it for the next container.
-Load the SDK:
-```sh
-docker run --rm -it \
-    -v ~/pebble-dev/SDKs/:/home/pebble/.pebble-sdk/SDKs/ \
-    bboehmke/pebble-dev \
-    pebble sdk install <SDK_VERSION>
-```
-Build the APP:
-```sh
-docker run --rm -it \
-    -v ~/pebble-dev/project/:/pebble/ \
-    -v ~/pebble-dev/SDKs/:/home/pebble/.pebble-sdk/SDKs/ \
-    bboehmke/pebble-dev \
-    pebble build
-```
-
-If you have multiple SDK you must switch to the correct one before build:
-```sh
-docker run --rm -it \
-    -v ~/pebble-dev/SDKs/:/home/pebble/.pebble-sdk/SDKs/ \
-    bboehmke/pebble-dev \
-    pebble sdk activate <SDK_VERSION>
-```
-
-
 ## Usage as terminal
 
 For example if you created a directory ```pebble-dev``` in your home directory 
@@ -76,6 +27,7 @@ container with:
 ```sh
 docker start -it -a pebbleDev
 ```
+
 
 ## Direct usage
 

@@ -1,9 +1,11 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Benjamin Böhmke
 
 # update system and get base packages
 RUN apt-get update && \
-    apt-get install -y curl python2.7-dev python-pip libfreetype6-dev bash-completion libsdl1.2debian libfdt1 libpixman-1-0 libglib2.0-dev && \
+    apt-get install -y curl python2.7-dev python-pip libfreetype6-dev \
+                       bash-completion libsdl1.2debian libfdt1 libpixman-1-0 \
+                       libglib2.0-dev nodejs npm && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -26,13 +28,13 @@ RUN /bin/bash -c " \
         deactivate " && \
     rm -r /root/.cache/
 
-# prepare pebble user for build environment + enable analytics
+# prepare pebble user for build environment + disable analytics
 RUN adduser --disabled-password --gecos "" --ingroup users pebble && \
     echo "pebble ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     chmod -R 777 /opt/${PEBBLE_TOOL_VERSION} && \
     mkdir -p /home/pebble/.pebble-sdk/ && \
     chown -R pebble:users /home/pebble/.pebble-sdk && \
-    touch /home/pebble/.pebble-sdk/ENABLE_ANALYTICS
+    touch /home/pebble/.pebble-sdk/NO_TRACKING
 
 # change to pebble user
 USER pebble
@@ -40,11 +42,12 @@ USER pebble
 # set PATH
 ENV PATH /opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+# install sdk
+RUN yes | pebble sdk install ${PEBBLE_SDK_VERSION} && \
+    pebble sdk activate ${PEBBLE_SDK_VERSION}
+
 # prepare project mount path
 VOLUME /pebble/
-
-# install a sdk
-RUN yes | pebble sdk install ${PEBBLE_SDK_VERSION} && pebble sdk activate ${PEBBLE_SDK_VERSION}
 
 # set run command
 WORKDIR /pebble/
