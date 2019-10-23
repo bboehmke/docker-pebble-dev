@@ -14,7 +14,7 @@ ENV PEBBLE_TOOL_VERSION pebble-sdk-4.5-linux64
 ENV PEBBLE_SDK_VERSION 4.3
 
 # get pebble tool
-RUN curl -sSL https://s3.amazonaws.com/assets.getpebble.com/pebble-tool/${PEBBLE_TOOL_VERSION}.tar.bz2 \
+RUN curl -sSL https://developer.rebble.io/s3.amazonaws.com/assets.getpebble.com/pebble-tool/${PEBBLE_TOOL_VERSION}.tar.bz2 \
         | tar -v -C /opt/ -xj
 
 # prepare python environment 
