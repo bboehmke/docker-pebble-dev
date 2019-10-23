@@ -43,7 +43,7 @@ USER pebble
 ENV PATH /opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # install sdk
-RUN yes | pebble sdk install ${PEBBLE_SDK_VERSION} && \
+RUN yes | pebble sdk install https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2 && \
     pebble sdk activate ${PEBBLE_SDK_VERSION}
 
 # prepare project mount path
