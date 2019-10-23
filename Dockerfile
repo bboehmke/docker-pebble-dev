@@ -20,7 +20,6 @@ RUN curl -sSL https://developer.rebble.io/s3.amazonaws.com/assets.getpebble.com/
 # prepare python environment 
 WORKDIR /opt/${PEBBLE_TOOL_VERSION}
 RUN /bin/bash -c " \
-        pip install virtualenv && \
         virtualenv --no-site-packages .env && \
         source .env/bin/activate && \
         pip install -r requirements.txt && \
