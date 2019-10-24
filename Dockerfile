@@ -22,7 +22,7 @@ WORKDIR /opt/${PEBBLE_TOOL_VERSION}
 RUN /bin/bash -c " \
         virtualenv --no-site-packages .env && \
         source .env/bin/activate && \
-		sed '/pypkjs/d' requirements.txt > requirements.txt && \
+        sed -i '/pypkjs/d' requirements.txt && \
         pip install -r requirements.txt https://github.com/Willow-Systems/vagrant-pebble-sdk/raw/master/pypkjs-1.0.6.tar.gz && \
         deactivate " && \
     rm -r /root/.cache/
