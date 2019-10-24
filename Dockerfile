@@ -4,7 +4,7 @@ MAINTAINER Benjamin Böhmke
 # update system and get base packages
 RUN apt-get update && \
     apt-get install -y curl libfreetype6-dev bash-completion libsdl1.2debian \
-	                   libfdt1 libpixman-1-0 libglib2.0-dev nodejs npm && \
+                       libfdt1 libpixman-1-0 libglib2.0-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -38,8 +38,18 @@ RUN adduser --disabled-password --gecos "" --ingroup users pebble && \
 # change to pebble user
 USER pebble
 
+ENV NODE_VERSION 10.16.2
+
+ENV NVM_DIR /home/pebble/.nvm
+
+RUN mkdir -p $NVM_DIR && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash && \
+    . $NVM_DIR/nvm.sh && \
+    nvm install $NODE_VERSION
+
 # set PATH
-ENV PATH /opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:/opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 
 # install sdk
 RUN yes | pebble sdk install https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2 && \
