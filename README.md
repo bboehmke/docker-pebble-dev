@@ -1,5 +1,7 @@
 # Pebble development environment
 
+This is a 64-bit Docker image for Pebble using the Rebble SDK.
+
 ## Legal Note
 You must accept the [Pebble Terms of Use](https://developer.getpebble.com/legal/terms-of-use/)
 and the [SDK License Agreement](https://developer.getpebble.com/legal/sdk-license/) 
