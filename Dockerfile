@@ -5,6 +5,7 @@ MAINTAINER Benjamin Böhmke
 RUN apt-get update && \
     apt-get install -y curl libfreetype6-dev bash-completion libsdl1.2debian \
                        libfdt1 libpixman-1-0 libglib2.0-dev && \
+    apt-get install -y vim screen && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
