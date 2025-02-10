@@ -12,7 +12,7 @@ to use the Pebble SDK.
 First download the SDK tar file required:
 
 ```
-https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-4.3.tar.bz2
+wget https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-4.3.tar.bz2
 ```
 
 Next, build an image:
