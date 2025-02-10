@@ -7,6 +7,20 @@ You must accept the [Pebble Terms of Use](https://developer.getpebble.com/legal/
 and the [SDK License Agreement](https://developer.getpebble.com/legal/sdk-license/) 
 to use the Pebble SDK.
 
+## Building
+
+First download the SDK tar file required:
+
+```
+https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-4.3.tar.bz2
+```
+
+Next, build an image:
+
+```
+docker build -t pebble-sdk .
+```
+
 
 ## Usage as terminal
 
