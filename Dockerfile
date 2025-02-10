@@ -22,7 +22,7 @@ RUN curl -sSL https://developer.rebble.io/s3.amazonaws.com/assets.getpebble.com/
 # prepare python environment 
 WORKDIR /opt/${PEBBLE_TOOL_VERSION}
 RUN /bin/bash -c " \
-        virtualenv --no-site-packages .env && \
+        virtualenv .env && \
         source .env/bin/activate && \
         sed -i '/pypkjs/d' requirements.txt && \
         pip install -r requirements.txt https://github.com/Willow-Systems/vagrant-pebble-sdk/raw/master/pypkjs-1.0.6.tar.gz && \
@@ -52,9 +52,9 @@ RUN mkdir -p $NVM_DIR && \
 # set PATH
 ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:/opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-
 # install sdk
-RUN yes | pebble sdk install https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2 && \
+RUN wget https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2
+RUN yes | pebble sdk install ./sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2 && \
     pebble sdk activate ${PEBBLE_SDK_VERSION}
 
 # prepare project mount path
