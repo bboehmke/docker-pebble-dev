@@ -53,7 +53,7 @@ RUN mkdir -p $NVM_DIR && \
 ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:/opt/${PEBBLE_TOOL_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # install sdk
-COPY sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2 .
+RUN wget https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2
 RUN yes | pebble sdk install ./sdk-core-${PEBBLE_SDK_VERSION}.tar.bz2 && \
     pebble sdk activate ${PEBBLE_SDK_VERSION}
 
